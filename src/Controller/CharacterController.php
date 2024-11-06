@@ -10,12 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CharacterController extends AbstractController
 {
-    #[Route('/character', name: 'app_character')]
+    #[Route('/listCharacters', name: 'app_character')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $characters = $entityManager->getRepository(Character::class)->findAll();
         return $this->render('character/index.html.twig', [
             'characters' => $characters
+        ]);
+    }
+
+    #[Route('/character/{id}', name: 'show_character')]
+    public function show(Character $character): Response
+    {
+        return $this->render('character/show.html.twig', [
+            'character' => $character
         ]);
     }
 }

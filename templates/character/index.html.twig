@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CharacterController!{% endblock %}
+{% block title %}Listes des personnages{% endblock %}
 
 {% block body %}
 
-    <h1>Listes des persos</h1>
+    <h1>Listes des personnages</h1>
 
     {% for character in characters %}
-        {{ character.name }} <img src="{{character.profilPhoto}}">
+        <a href="/character/{{ character.id }}">{{ character.name }} {{ character.fightingStyle }} <img src="{{character.profilPhoto}}"><br></a>
     {% endfor %}
 
 {% endblock %}

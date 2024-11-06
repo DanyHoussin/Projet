@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Biographie : {{ character.name }}{% endblock %}
+
+{% block body %}
+
+    <a href="/listCharacters">Retourner vers la liste des personnages</a>
+    <h1>{{ character.name }}</h1>
+
+    <p><img src="{{ character.profilPhoto }}"></p>
+    <p>Style de combat : {{ character.fightingStyle }}</p>
+    <p>Nationnalité : {{ character.nationality }}</p>
+    <p>Age : {{ character.age }}</p>
+    <p>Taille : {{ character.height }}</p>
+    <p>Poids : {{ character.weight }}</p>
+    <p>Background : {{ character.history }}</p>
+
+{% endblock %}
