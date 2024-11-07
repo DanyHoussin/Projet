@@ -26,7 +26,7 @@ class Tutorial
     private ?\DateTimeInterface $creationDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'tutorials')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'tutorials')]
