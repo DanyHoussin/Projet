@@ -2,19 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\ParticipationRepository;
-use Doctrine\DBAL\Types\Types;
+use App\Repository\ParticipationTournoiRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ParticipationRepository::class)]
-class Participation
+#[ORM\Entity(repositoryClass: ParticipationTournoiRepository::class)]
+class ParticipationTournoi
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'participations')]
+    #[ORM\ManyToOne(inversedBy: 'participationTournois')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
@@ -22,12 +21,9 @@ class Participation
     #[ORM\JoinColumn(nullable: false)]
     private ?Character $chosenCharacter = null;
 
-    #[ORM\ManyToOne(inversedBy: 'participations')]
+    #[ORM\ManyToOne(inversedBy: 'participationTournois')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?defi $defi = null;
-
-    #[ORM\Column]
-    private ?bool $achievement = null;
+    private ?Tournoi $tournoi = null;
 
     public function getId(): ?int
     {
@@ -58,26 +54,14 @@ class Participation
         return $this;
     }
 
-    public function getDefi(): ?defi
+    public function getTournoi(): ?Tournoi
     {
-        return $this->defi;
+        return $this->tournoi;
     }
 
-    public function setDefi(?defi $defi): static
+    public function setTournoi(?Tournoi $tournoi): static
     {
-        $this->defi = $defi;
-
-        return $this;
-    }
-
-    public function isAchievement(): ?bool
-    {
-        return $this->achievement;
-    }
-
-    public function setAchievement(bool $achievement): static
-    {
-        $this->achievement = $achievement;
+        $this->tournoi = $tournoi;
 
         return $this;
     }

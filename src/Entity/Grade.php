@@ -28,9 +28,16 @@ class Grade
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'grade')]
     private Collection $users;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'grade')]
+    private Collection $usersList;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->usersList = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,6 +93,36 @@ class Grade
             // set the owning side to null (unless already changed)
             if ($user->getGrade() === $this) {
                 $user->setGrade(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersList(): Collection
+    {
+        return $this->usersList;
+    }
+
+    public function addUsersList(User $usersList): static
+    {
+        if (!$this->usersList->contains($usersList)) {
+            $this->usersList->add($usersList);
+            $usersList->setGrade($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersList(User $usersList): static
+    {
+        if ($this->usersList->removeElement($usersList)) {
+            // set the owning side to null (unless already changed)
+            if ($usersList->getGrade() === $this) {
+                $usersList->setGrade(null);
             }
         }
 

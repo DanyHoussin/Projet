@@ -38,6 +38,9 @@ class Tutorial
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'tutorial')]
     private Collection $messages;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $videoLink = null;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -134,6 +137,18 @@ class Tutorial
                 $message->setTutorial(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVideoLink(): ?string
+    {
+        return $this->videoLink;
+    }
+
+    public function setVideoLink(string $videoLink): static
+    {
+        $this->videoLink = $videoLink;
 
         return $this;
     }

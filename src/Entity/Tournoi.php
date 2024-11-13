@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\DefiRepository;
+use App\Repository\TournoiRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DefiRepository::class)]
-class Defi
+#[ORM\Entity(repositoryClass: TournoiRepository::class)]
+class Tournoi
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,14 +32,14 @@ class Defi
     private ?string $reward = null;
 
     /**
-     * @var Collection<int, ParticipationDefi>
+     * @var Collection<int, ParticipationTournoi>
      */
-    #[ORM\OneToMany(targetEntity: ParticipationDefi::class, mappedBy: 'defi', orphanRemoval: true)]
-    private Collection $participationDefis;
+    #[ORM\OneToMany(targetEntity: ParticipationTournoi::class, mappedBy: 'tournoi', orphanRemoval: true)]
+    private Collection $participationTournois;
 
     public function __construct()
     {
-        $this->participationDefis = new ArrayCollection();
+        $this->participationTournois = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,29 +108,29 @@ class Defi
     }
 
     /**
-     * @return Collection<int, ParticipationDefi>
+     * @return Collection<int, ParticipationTournoi>
      */
-    public function getParticipationDefis(): Collection
+    public function getParticipationTournois(): Collection
     {
-        return $this->participationDefis;
+        return $this->participationTournois;
     }
 
-    public function addParticipationDefi(ParticipationDefi $participationDefi): static
+    public function addParticipationTournoi(ParticipationTournoi $participationTournoi): static
     {
-        if (!$this->participationDefis->contains($participationDefi)) {
-            $this->participationDefis->add($participationDefi);
-            $participationDefi->setDefi($this);
+        if (!$this->participationTournois->contains($participationTournoi)) {
+            $this->participationTournois->add($participationTournoi);
+            $participationTournoi->setTournoi($this);
         }
 
         return $this;
     }
 
-    public function removeParticipationDefi(ParticipationDefi $participationDefi): static
+    public function removeParticipationTournoi(ParticipationTournoi $participationTournoi): static
     {
-        if ($this->participationDefis->removeElement($participationDefi)) {
+        if ($this->participationTournois->removeElement($participationTournoi)) {
             // set the owning side to null (unless already changed)
-            if ($participationDefi->getDefi() === $this) {
-                $participationDefi->setDefi(null);
+            if ($participationTournoi->getTournoi() === $this) {
+                $participationTournoi->setTournoi(null);
             }
         }
 

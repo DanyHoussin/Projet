@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -47,6 +49,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    /**
+     * @var Collection<int, ParticipationTournoi>
+     */
+    #[ORM\OneToMany(targetEntity: ParticipationTournoi::class, mappedBy: 'user')]
+    private Collection $participationTournois;
+
+    /**
+     * @var Collection<int, ParticipationDefi>
+     */
+    #[ORM\OneToMany(targetEntity: ParticipationDefi::class, mappedBy: 'user')]
+    private Collection $participationDefis;
+
+    #[ORM\Column]
+    private ?int $gradePoint = null;
+
+    #[ORM\ManyToOne]
+    private ?Character $favoriteCharacter = null;
+
+    #[ORM\ManyToOne(inversedBy: 'usersList')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Grade $grade = null;
+
+    public function __construct()
+    {
+        $this->participationTournois = new ArrayCollection();
+        $this->participationDefis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +197,102 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ParticipationTournoi>
+     */
+    public function getParticipationTournois(): Collection
+    {
+        return $this->participationTournois;
+    }
+
+    public function addParticipationTournoi(ParticipationTournoi $participationTournoi): static
+    {
+        if (!$this->participationTournois->contains($participationTournoi)) {
+            $this->participationTournois->add($participationTournoi);
+            $participationTournoi->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipationTournoi(ParticipationTournoi $participationTournoi): static
+    {
+        if ($this->participationTournois->removeElement($participationTournoi)) {
+            // set the owning side to null (unless already changed)
+            if ($participationTournoi->getUser() === $this) {
+                $participationTournoi->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ParticipationDefi>
+     */
+    public function getParticipationDefis(): Collection
+    {
+        return $this->participationDefis;
+    }
+
+    public function addParticipationDefi(ParticipationDefi $participationDefi): static
+    {
+        if (!$this->participationDefis->contains($participationDefi)) {
+            $this->participationDefis->add($participationDefi);
+            $participationDefi->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipationDefi(ParticipationDefi $participationDefi): static
+    {
+        if ($this->participationDefis->removeElement($participationDefi)) {
+            // set the owning side to null (unless already changed)
+            if ($participationDefi->getUser() === $this) {
+                $participationDefi->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGradePoint(): ?int
+    {
+        return $this->gradePoint;
+    }
+
+    public function setGradePoint(int $gradePoint): static
+    {
+        $this->gradePoint = $gradePoint;
+
+        return $this;
+    }
+
+    public function getFavoriteCharacter(): ?Character
+    {
+        return $this->favoriteCharacter;
+    }
+
+    public function setFavoriteCharacter(?Character $favoriteCharacter): static
+    {
+        $this->favoriteCharacter = $favoriteCharacter;
+
+        return $this;
+    }
+
+    public function getGrade(): ?Grade
+    {
+        return $this->grade;
+    }
+
+    public function setGrade(?Grade $grade): static
+    {
+        $this->grade = $grade;
 
         return $this;
     }
