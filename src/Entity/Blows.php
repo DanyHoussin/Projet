@@ -19,7 +19,7 @@ class Blows
 
     #[ORM\ManyToOne(inversedBy: 'blows')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?character $chosenCharacter = null;
+    private ?Character $chosenCharacter = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -41,12 +41,12 @@ class Blows
         return $this;
     }
 
-    public function getChosenCharacter(): ?character
+    public function getChosenCharacter(): ?Character
     {
         return $this->chosenCharacter;
     }
 
-    public function setChosenCharacter(?character $chosenCharacter): static
+    public function setChosenCharacter(?Character $chosenCharacter): static
     {
         $this->chosenCharacter = $chosenCharacter;
 

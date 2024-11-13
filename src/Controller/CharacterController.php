@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Blows;
 use App\Entity\Character;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,8 @@ class CharacterController extends AbstractController
     public function show(Character $character): Response
     {
         return $this->render('character/show.html.twig', [
-            'character' => $character
+            'character' => $character,
+            'blows' => $character->getBlows()
         ]);
     }
 }

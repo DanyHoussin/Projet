@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Character>
  * 
- * @method Character[]  findAll()
  */
 class CharacterRepository extends ServiceEntityRepository
 {

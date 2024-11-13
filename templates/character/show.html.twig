@@ -15,4 +15,9 @@
     <p>Poids : {{ character.weight }}</p>
     <p>Background : {{ character.history }}</p>
 
+    <h1>Combo</h1>
+    {% for blow in blows %}
+        {{ blow.name }} {{ blow.movelist }}<br>
+    {% endfor %}
+
 {% endblock %}
