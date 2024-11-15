@@ -62,15 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: ParticipationDefi::class, mappedBy: 'user')]
     private Collection $participationDefis;
 
-    #[ORM\Column]
-    private ?int $gradePoint = null;
+    #[ORM\Column(type: 'integer', options: ["default" => 0])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?int $gradePoint = 0;
 
     #[ORM\ManyToOne]
     private ?Character $favoriteCharacter = null;
-
-    #[ORM\ManyToOne(inversedBy: 'usersList')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Grade $grade = null;
 
     public function __construct()
     {
@@ -285,15 +282,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getGrade(): ?Grade
-    {
-        return $this->grade;
-    }
-
-    public function setGrade(?Grade $grade): static
-    {
-        $this->grade = $grade;
-
-        return $this;
-    }
 }

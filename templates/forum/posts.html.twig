@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ForumController!{% endblock %}
+
+{% block body %}
+
+<a href="{{ path('show_listTopicsInCategory', { 'id':topic.getCategory.getId }) }}">Retourner vers la liste des Topic</a>
+
+
+    <h1>{{topic.getTitle()}}</h1>
+
+    {% for post in posts %}
+        {{ post.getPostText() }} par {{ post.getUser.getPseudo }}<br>
+    {% endfor %}
+
+{% endblock %}

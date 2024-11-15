@@ -4,8 +4,10 @@
 
 {% block body %}
 
-{% for category in categorys %}
-    {{ category.name }}<br>
-{% endfor %}
+    <h1>Listes des catégories</h1>
+
+    {% for category in categorys %}
+        <a href="{{ path('show_listTopicsInCategory', { 'id':category.id }) }}">{{ category.name }}</a><br>
+    {% endfor %}
 
 {% endblock %}

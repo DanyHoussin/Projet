@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Grade;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,7 +38,6 @@ class RegistrationController extends AbstractController
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setCreationDate(new \DateTime());
             $user->setProfilPhoto("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fuser_149071&psig=AOvVaw0SmIg4opEatF0P7qm03zSv&ust=1731059420880000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKjw3YD5yYkDFQAAAAAdAAAAABAE");
-
 
             $entityManager->persist($user);
             $entityManager->flush();

@@ -11,7 +11,62 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
+
     <body>
+        <header>
+            <nav>
+                <div id="nav-left">
+                    {# <?php
+                    //if(App\Session::isAdmin()){
+                        ?>
+                        <!-- <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a> -->
+                        Logo
+                    <?php //} ?> #}
+                </div>
+                <div id="nav-right">
+                    {# // si l'utilisateur est connecté  #}
+                    {% if (app.user) %}
+                        <a href="">Home</a>
+                        <div class="settings">
+                            <a href="javascript:void(0);" class="icon" onclick="settings()">
+                                <i><span class="fas fa-user"></span></i>
+                            </a>
+                            <div id="settingsMenu">
+                                <ul>
+                                    <a href=""><li>Profil</li></a>
+                                    <a href="{{ path('app_logout') }}"><li>Se déconnecter</li></a>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{{ path('app_login') }}">Se connecter</a>
+                        <a href="{{ path('app_register') }}">S'inscrire</a>
+                    {% endif %}
+                </div>
+                <div class="menuBurger">
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                        <i class="fa-solid fa-bars"></i>
+                    </a>
+                    <div id="navbarphone">
+                        <a href="javascript:void(0);" id="iconClose" onclick="myFunction()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+                        <ul>
+                            {% if (app.user) %}
+                                <li><a href="" class="homeBtn"><i class="fa-solid fa-house"></i>Home</a></li>
+                                <li><a href="">Profil</a></li>
+                                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                            </ul>
+                            </div>
+                            {% else %}
+                                <a href="{{ path('app_login') }}"><li>Se connecter</li></a>
+                                <a href="{{ path('app_register') }}"><li>S'inscrire</li></a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                 </div>
+            </nav>
+        </header>
         {% block body %}{% endblock %}
     </body>
 </html>
