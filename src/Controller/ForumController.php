@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 
+use App\Entity\Post;
 use App\Entity\Topic;
 use App\Entity\Category;
+use App\Form\NewPostType;
+use App\Form\NewTopicType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +36,108 @@ class ForumController extends AbstractController
     }
 
     #[Route('/listPostsInTopic/{id}', name: 'show_listPostsInTopic')]
-    public function listPosts(Topic $topic): Response
+    public function listPosts(Topic $topic, Request $request, Security $security, EntityManagerInterface $entityManager): Response
     {
+        $post = new Post();
+    
+        $formPost = $this->createForm(NewPostType::class, $post);
+        $formPost->handleRequest($request);
+    
+        if ($formPost->isSubmitted() && $formPost->isValid()) {
+            // Récupérer l'utilisateur connecté
+            $user = $security->getUser();
+            $post->setUser($user); // Définir l'utilisateur
+            $post->setTopic($topic); // Defini le topic
+            // Définir la date actuelle
+            $post->setCreationDateMessage(new \DateTime());
+    
+            // Sauvegarder dans la base de données
+            $entityManager->persist($post);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('show_listPostsInTopic', ['id' => $post->getTopic()->getId()]);
+        }
+    
         return $this->render('forum/posts.html.twig', [
+            'newPost' => $formPost->createView(),
             'topic' => $topic,
             'posts' => $topic->getPosts()
         ]);
     }
+
+    #[Route('/newTopicInCategory/{id}', name: 'show_newTopicInCategory')]
+    public function newTopic(Category $category, Request $request, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        $post = new Post();
+        $topic = new Topic();
+    
+        $formTopic = $this->createForm(NewTopicType::class, $topic);
+        $formPost = $this->createForm(NewPostType::class, $post);
+        $formTopic->handleRequest($request);
+        $formPost->handleRequest($request);
+    
+        if ($formTopic->isSubmitted() && $formTopic->isValid()) {
+            // Récupérer l'utilisateur connecté
+            $user = $security->getUser();
+            $topic->setUser($user); // Définir l'utilisateur
+            $topic->setCategory($category); // Définir le category
+            // Définir la date actuelle
+            $topic->setCreationDateTopic(new \DateTime());
+            $topic->setLocked(false);
+            
+            // Sauvegarder dans la base de données
+            $entityManager->persist($topic);
+            $entityManager->flush();
+
+            $post->setUser($user); // Définir l'utilisateur
+            $post->setTopic($topic); // Defini le topic
+            // Définir la date actuelle
+            $post->setCreationDateMessage(new \DateTime());
+        
+            // Sauvegarder dans la base de données
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_listTopicsInCategory', ['id' => $topic->getCategory()->getId()]);
+        }
+    
+        return $this->render('forum/newTopic.html.twig', [
+            'newTopic' => $formTopic->createView(),
+            'newPost' => $formPost->createView(),
+            'category' => $category
+        ]);
+    }
+
+    #[Route('/topic/delete/{id}', name: 'delete_topic', methods: ['POST'])]
+    public function deleteTopic(Request $request, Topic $topic, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        if ($security->getUser() == $topic->getUser()) {
+            // Protection contre la suppression accidentelle via un token CSRF
+            if ($this->isCsrfTokenValid('delete'.$topic->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($topic);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Topic supprimé avec succès.');
+            }
+        }
+
+        return $this->redirectToRoute('show_listTopicsInCategory', ['id' => $topic->getCategory()->getId()]);
+    }
+
+    #[Route('/post/delete/{id}', name: 'delete_post', methods: ['POST'])]
+    public function deletePost(Request $request, Post $post, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        if ($security->getUser() == $post->getUser()) {
+            // Protection contre la suppression accidentelle via un token CSRF
+            if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($post);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Topic supprimé avec succès.');
+            }
+        }
+
+        return $this->redirectToRoute('show_listPostsInTopic', ['id' => $post->getTopic()->getId()]);
+    }
+
 }

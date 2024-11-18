@@ -6,8 +6,18 @@
 
     <h1>Listes des personnages</h1>
 
-    {% for character in characters %}
-        <a href="{{ path('show_character', { 'id':character.id }) }}">{{ character.name }} {{ character.fightingStyle }} <img src="{{character.profilPhoto}}"><br></a>
-    {% endfor %}
+    <div class="container">
+        <ul class="character-collection">
+            {% for character in characters %}
+                <a href="{{ path('show_character', { 'id':character.id }) }}">
+                    <li class="person {{character.name}}" style="background-image: url({{character.profilPhoto}}); background-size: 500px; background-position-x: 50%; ; background-position-y: 0%">
+                        <div class="hover-person"></div>
+                        <img src="{{character.profilPhoto}}" alt="{{character.name}} {{character.getLastName}}" />
+                        <p class="text-name">{{character.name}} {{character.getLastName}}</p><br>
+                    </li>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}

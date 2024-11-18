@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ForumController!{% endblock %}
+
+{% block body %}
+
+    <h1>Nouveau Topic</h1>
+
+    {% if (app.user) %}
+
+        {{ form_errors(newTopic) }}
+
+        {{ form_start(newTopic) }}
+        {{ form_row(newTopic.title, { 'label': false, 'attr': {'placeholder': 'Entrez votre titre ici...'} }) }}
+        
+        {{ form_row(newPost.postText, { 'label': false, 'attr': {'placeholder': 'Entrez votre message ici...'} }) }}
+        <button type="submit" class="btn">Créer</button>
+
+        {{ form_end(newTopic) }}
+
+    {% else %}
+        <p><strong>Connectez-vous ou inscrivez-vous pour pouvoir créer un nouveau topic.</strong></p>
+        <a href="{{ path('app_login') }}">Se connecter</a>
+        <a href="{{ path('app_register') }}">S'inscrire</a>
+    {% endif %}
+
+{% endblock %}

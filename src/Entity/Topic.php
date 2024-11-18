@@ -138,4 +138,10 @@ class Topic
 
         return $this;
     }
+
+    public function _toString(): ?int
+    {
+        return $this->id;
+    }
+
 }

@@ -9,8 +9,15 @@
 
     <h1>Listes des Topics : {{category.name}}</h1>
 
+    <a href="{{ path('show_newTopicInCategory', { 'id':category.getId() }) }}">Créer un nouveau topic</a><br>
     {% for topic in topics %}
         <a href="{{ path('show_listPostsInTopic', { 'id':topic.getId() }) }}">{{ topic.getTitle() }}</a><br>
+        {% if app.user == topic.getUser() %}
+            <form method="post" action="{{ path('delete_topic', {id: topic.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce topic ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ topic.id) }}">
+                <button>Supprimer</button>
+            </form>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

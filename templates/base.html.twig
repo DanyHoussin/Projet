@@ -2,8 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         {% block stylesheets %}
         {% endblock %}
 
@@ -20,13 +22,19 @@
                     //if(App\Session::isAdmin()){
                         ?>
                         <!-- <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a> -->
+                        <?php //} ?> #}
                         Logo
-                    <?php //} ?> #}
                 </div>
                 <div id="nav-right">
                     {# // si l'utilisateur est connecté  #}
                     {% if (app.user) %}
                         <a href="">Home</a>
+                        <div class="greyPart"></div>
+                        <a href="{{ path('app_character') }}">Personnage</a>
+                        <a href="">Defi</a>
+                        <div class="greyPart"></div>
+                        <a href="{{ path('app_forum') }}">Forum</a>
+                        <div class="greyPart"></div>
                         <div class="settings">
                             <a href="javascript:void(0);" class="icon" onclick="settings()">
                                 <i><span class="fas fa-user"></span></i>
@@ -54,8 +62,11 @@
                         <ul>
                             {% if (app.user) %}
                                 <li><a href="" class="homeBtn"><i class="fa-solid fa-house"></i>Home</a></li>
-                                <li><a href="">Profil</a></li>
-                                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                                <a href=""><li>Profil</li></a>
+                                <a href="{{ path('app_character') }}"><li>Personnage</li></a>
+                                <a href=""><li>Defi</li></a>
+                                <a href="{{ path('app_forum') }}"><li>Forum</li></a>
+                                <a href="{{ path('app_logout') }}"><li>Se déconnecter</li></a>
                             </ul>
                             </div>
                             {% else %}
@@ -69,4 +80,14 @@
         </header>
         {% block body %}{% endblock %}
     </body>
+    <script>
+        function settings() {
+        var x = document.getElementById("settingsMenu");
+        if (x.style.display === "flex") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "flex";
+        }
+        }
+    </script>
 </html>
