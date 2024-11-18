@@ -35,6 +35,12 @@ class ForumController extends AbstractController
         ]);
     }
 
+    #[Route('/errorPage', name: 'show_errorForum')]
+    public function errorPage(EntityManagerInterface $entityManager): Response
+    {
+        return $this->render('forum/error.html.twig');
+    }
+
     #[Route('/listPostsInTopic/{id}', name: 'show_listPostsInTopic')]
     public function listPosts(Topic $topic, Request $request, Security $security, EntityManagerInterface $entityManager): Response
     {
@@ -132,12 +138,32 @@ class ForumController extends AbstractController
             if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($post);
                 $entityManager->flush();
-
-                $this->addFlash('success', 'Topic supprimé avec succès.');
             }
         }
 
         return $this->redirectToRoute('show_listPostsInTopic', ['id' => $post->getTopic()->getId()]);
+    }
+
+    #[Route('/post/lock/{id}', name: 'lockOrUnlockTopic', methods: ['POST'])]
+    public function lockOrUnLockTopic(Request $request, Topic $topic, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        if ($security->getUser() == $topic->getUser()) {
+            // Protection contre la suppression accidentelle via un token CSRF
+            if ($this->isCsrfTokenValid('lock'.$topic->getId(), $request->request->get('_token'))) {
+                
+                
+                if ($topic->isLocked() == false) {
+                    $topic->setLocked(!$topic->isLocked());
+                    $entityManager->flush();
+                } else {
+                    $topic->setLocked(!$topic->isLocked());
+                    $entityManager->flush();
+                }
+
+            }
+        }
+
+        return $this->redirectToRoute('show_listTopicsInCategory', ['id' => $topic->getCategory()->getId()]);
     }
 
 }

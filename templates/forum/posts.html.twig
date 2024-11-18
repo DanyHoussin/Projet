@@ -20,12 +20,17 @@
     {% endfor %}
 
     {% if (app.user) %}
-        {{ form_errors(newPost) }}
+        {% if (topic.isLocked == false) %}
+            {{ form_errors(newPost) }}
 
-        {{ form_start(newPost) }}
-        {{ form_row(newPost.postText, { 'label': false, 'attr': {'placeholder': 'Entrez votre message ici...'} }) }}
-            <button type="submit" class="btn">Envoyer</button>
-        {{ form_end(newPost) }}
+            {{ form_start(newPost) }}
+            {{ form_row(newPost.postText, { 'label': false, 'attr': {'placeholder': 'Entrez votre message ici...'} }) }}
+                <button type="submit" class="btn">Envoyer</button>
+            {{ form_end(newPost) }}
+        {% else %}
+            <p>Le sujet a été verrouiller et ne peut recevoir de nouveau post.</p>
+            //En tant qu'admin il peut le réouvrir si il veut//
+        {% endif %}
     {% else %}
         <p><strong>Connectez-vous ou inscrivez-vous pour pouvoir écrire</strong></p>
         <a href="{{ path('app_login') }}">Se connecter</a>
