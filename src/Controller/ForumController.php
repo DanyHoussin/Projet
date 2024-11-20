@@ -117,7 +117,7 @@ class ForumController extends AbstractController
     #[Route('/topic/delete/{id}', name: 'delete_topic', methods: ['POST'])]
     public function deleteTopic(Request $request, Topic $topic, Security $security, EntityManagerInterface $entityManager): Response
     {
-        if ($security->getUser() == $topic->getUser()) {
+        if ($security->getUser() == $topic->getUser() || $security->isGranted('ROLE_ADMIN')) {
             // Protection contre la suppression accidentelle via un token CSRF
             if ($this->isCsrfTokenValid('delete'.$topic->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($topic);
@@ -133,8 +133,8 @@ class ForumController extends AbstractController
     #[Route('/post/delete/{id}', name: 'delete_post', methods: ['POST'])]
     public function deletePost(Request $request, Post $post, Security $security, EntityManagerInterface $entityManager): Response
     {
-        if ($security->getUser() == $post->getUser()) {
-            // Protection contre la suppression accidentelle via un token CSRF
+        if ($security->getUser() == $post->getUser() || $security->isGranted('ROLE_ADMIN')) {
+            
             if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($post);
                 $entityManager->flush();
@@ -147,7 +147,7 @@ class ForumController extends AbstractController
     #[Route('/post/lock/{id}', name: 'lockOrUnlockTopic', methods: ['POST'])]
     public function lockOrUnLockTopic(Request $request, Topic $topic, Security $security, EntityManagerInterface $entityManager): Response
     {
-        if ($security->getUser() == $topic->getUser()) {
+        if ($security->isGranted('ROLE_ADMIN')) {
             // Protection contre la suppression accidentelle via un token CSRF
             if ($this->isCsrfTokenValid('lock'.$topic->getId(), $request->request->get('_token'))) {
                 
@@ -163,7 +163,7 @@ class ForumController extends AbstractController
             }
         }
 
-        return $this->redirectToRoute('show_listTopicsInCategory', ['id' => $topic->getCategory()->getId()]);
+        return $this->redirectToRoute('show_listPostsInTopic', ['id' => $topic->getId()]);
     }
 
 }

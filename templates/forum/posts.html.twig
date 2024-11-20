@@ -11,7 +11,7 @@
 
     {% for post in posts %}
         {{ post.getPostText() }} par {{ post.getUser.getPseudo }}<br>
-        {% if app.user == topic.getUser() %}
+        {% if app.user == topic.getUser() or is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD') %}
             <form method="post" action="{{ path('delete_post', {id: post.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?');">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
                 <button>Supprimer</button>
@@ -29,7 +29,10 @@
             {{ form_end(newPost) }}
         {% else %}
             <p>Le sujet a été verrouiller et ne peut recevoir de nouveau post.</p>
-            //En tant qu'admin il peut le réouvrir si il veut//
+            <form method="post" action="{{ path('lockOrUnlockTopic', {id: topic.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir deverrouiller ce topic ? ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('lock' ~ topic.id) }}">
+                <button>Deverrouiller</button>
+            </form>
         {% endif %}
     {% else %}
         <p><strong>Connectez-vous ou inscrivez-vous pour pouvoir écrire</strong></p>

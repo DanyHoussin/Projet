@@ -12,21 +12,23 @@
     <a href="{{ path('show_newTopicInCategory', { 'id':category.getId() }) }}">Créer un nouveau topic</a><br>
     {% for topic in topics %}
         <a href="{{ path('show_listPostsInTopic', { 'id':topic.getId() }) }}">{{ topic.getTitle() }}</a><br>
-        {% if app.user == topic.getUser() %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD') or app.user == topic.getUser()  %}
             <form method="post" action="{{ path('delete_topic', {id: topic.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce topic ?');">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ topic.id) }}">
                 <button>Supprimer</button>
             </form>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
             {% if topic.isLocked() == true %}
                 <form method="post" action="{{ path('lockOrUnlockTopic', {id: topic.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir deverrouiller ce topic ? ?');">
                     <input type="hidden" name="_token" value="{{ csrf_token('lock' ~ topic.id) }}">
                     <button>Deverrouiller</button>
                 </form>
             {% else %}
-            <form method="post" action="{{ path('lockOrUnlockTopic', {id: topic.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir verrouiller ce topic ? ?');">
-                <input type="hidden" name="_token" value="{{ csrf_token('lock' ~ topic.id) }}">
-                <button>Verrouiller</button>
-            </form>
+                <form method="post" action="{{ path('lockOrUnlockTopic', {id: topic.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir verrouiller ce topic ? ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('lock' ~ topic.id) }}">
+                    <button>Verrouiller</button>
+                </form>
             {% endif %}
         {% endif %}
     {% endfor %}

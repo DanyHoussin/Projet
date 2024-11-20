@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?\DateTimeInterface $creationDate = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, options: ["default" => "../img/profil_icon.png"])]
     #[ORM\JoinColumn(nullable: false)]
     private ?string $profilPhoto = null;
 

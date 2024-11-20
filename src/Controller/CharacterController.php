@@ -28,4 +28,13 @@ class CharacterController extends AbstractController
             'blows' => $character->getBlows()
         ]);
     }
+
+    #[Route('/moves/{id}', name: 'show_moves')]
+    public function moveslist(Character $character): Response
+    {
+        return $this->render('character/show.html.twig', [
+            'character' => $character,
+            'blows' => $character->getBlows()
+        ]);
+    }
 }

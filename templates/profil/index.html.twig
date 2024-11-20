@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+        <h2>Listes des utilisateurs</h2>
+
+        {% for user in users %}
+            <a href="{{ path('show_profil', { 'id':user.id }) }}">
+                <img src="{{user.profilPhoto}}" alt="{{user.pseudo}}" />
+                <p class="text-name">{{user.pseudo}}</p><br>
+            </a>
+        {% endfor %}
+    {% else %}
+        
+        Vous n'avez pas accès à cette page.
+
+    {% endif %}
+
+{% endblock %}
