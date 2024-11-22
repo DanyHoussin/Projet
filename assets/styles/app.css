@@ -24,7 +24,7 @@
     background: black;
     background-position:0% 61%;
     background-repeat: no-repeat;
-    height: 60px;
+    height: 50px;
     z-index: 9999;
     box-shadow: rgba(0, 0, 0, 0.61) 0px 19px 38px, rgba(0, 0, 0, 0.445) 0px 15px 12px;
 }
@@ -44,6 +44,11 @@ nav{
     justify-content: center;
     align-items: center;
 }
+
+#nav-left img{
+    height: 40px;
+}
+
 #nav-right{
     display: flex;
     justify-content: center;
@@ -213,17 +218,170 @@ a:active {
 
 /* 
 =====================================================
+======================= HOME ========================
+=====================================================
+ */
+
+.homeVideoContainer{
+    width: 100%;
+    height: 93vh;
+    object-fit: cover;
+    position: relative;
+    filter: drop-shadow(0px 0px 20px hsl(0, 0%, 0%));
+
+}
+
+.homeVideoContainer article{
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    z-index: 99;
+    background: none;
+}
+
+.homeVideoContainer article img{
+    width: 500px;
+    background: none;
+}
+
+.homeVideoContainer article p{
+    background: none;
+    color: white;
+    font-size: large;
+    padding: 20px;
+}
+
+
+
+.homeVideo{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.homeVideo::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #000000 0%, #000000 35%, #ffffff00 50%, #ffffff00 100%);
+}
+
+.homeVideo video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.tekkenFranchise{
+    padding: 40px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to top, #6D0002 0%, #1f1f1f 50%, #6D0002 100%);;
+}
+
+.tekkenFranchise img{
+    background: none;
+    width: 400px;
+    filter: drop-shadow(0px 0px 30px hsl(0, 0%, 0%));
+    padding-bottom: 40px;
+}
+
+.tekkenFranchise p{
+    background: linear-gradient(to bottom, #002553 0%, #003F87 100%);;
+    color: white;
+    padding: 30px;
+    border-radius: 16px;
+    filter: drop-shadow(0px 20px 20px hsl(0, 0%, 0%));
+}
+
+.tekkenFranchise .block1{
+    width: 70%;
+    text-align:justify;
+    text-wrap:balance;
+    margin-bottom: 80px;
+}
+
+.tekkenFranchise .block2{
+    background: none;
+    width: 100%;
+    height: 800px;
+    position: relative;
+}
+
+.block2 .videoContainerRight{
+    padding: 0;
+    margin-top: 60px;
+    background:none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 66px 0px 0px 66px;
+    overflow: hidden;
+    filter: drop-shadow(0px 20px 20px hsl(0, 0%, 0%));
+}
+
+.tekkenFranchise .block2 video{
+    display: block;
+    z-index: -99;
+    background:none;
+    width: 1000px;
+    height: Auto;
+}
+
+.tekkenFranchise .block2 p{
+    position: absolute;
+    width: 600px;
+    height: fit-content;
+    top: 500px;
+    left: 100px;
+}
+
+.tekkenFranchise .block3{
+    background: none;
+    width: 100%;
+    height: 1000px;
+    position: relative;
+}
+
+.block3 .videoContainerLeft{
+    padding: 0;
+    margin-top: 60px;
+    background:none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0px 66px 66px 0px;
+    overflow: hidden;
+    filter: drop-shadow(0px 20px 20px hsl(0, 0%, 0%));
+}
+
+.tekkenFranchise .block3 video{
+    display: block;
+    z-index: -99;
+    background:none;
+    width: 1000px;
+    height: Auto;
+}
+
+.tekkenFranchise .block3 p{
+    position: absolute;
+    width: 600px;
+    height: fit-content;
+    top: 500px;
+    right: 100px;
+}
+/* 
+=====================================================
 ================= LISTE DES PERSOS ==================
 =====================================================
  */
 
- 
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
+
   
   body {
     height: 100vh;

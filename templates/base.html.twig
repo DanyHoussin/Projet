@@ -28,7 +28,7 @@
                 <div id="nav-right">
                     {# // si l'utilisateur est connecté  #}
                     {% if (app.user) %}
-                        <a href="">Home</a>
+                        <a href="{{ path('app_home') }}">Home</a>
                         <div class="greyPart"></div>
                         <a href="{{ path('app_character') }}">Personnage</a>
                         <a href="">Defi</a>

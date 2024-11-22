@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    <section class="homeVideoContainer">
+        <article>
+            <img src="../img/IFA-text.png">
+            <p>Plongez dans l'univers de Tekken 8 : </p>
+            <p>découvrez les personnages emblématiques,</p>
+            <p>maîtrisez les stratégies approfondies,</p>
+            <p>et rejoignez une communauté de passionnés !</p>
+        </article>
+        <div class="homeVideo">
+            <video loop muted autoplay width="100%" height="100%">
+                <source src="../video/IFA-home.webm" type="video/webm" />
+            </video>
+        </div>
+    </section>
+    <section class="tekkenFranchise">
+        <img src="../img/Tekken-8-logo.png">
+        <p class="block1">La franchise Tekken est l'une des séries de jeux de combat les plus emblématiques et influentes de l'histoire du jeu vidéo. Développée par Bandai Namco Entertainment, elle a été lancée en 1994 avec le premier Tekken sur PlayStation. Depuis lors, la série a connu de nombreux épisodes, spin-offs et adaptations, se taillant une place de choix dans le cœur des joueurs.</p>
+        <div class="block2">
+            <div class="videoContainerRight">
+                <video loop muted autoplay width="100%" height="100%">
+                    <source src="https://static.bandainamcoent.eu/video/tekken8/TEKKEN8-trailer-autoplay.webm" type="video/webm" />
+                </video>
+            </div>
+            <p>Histoire et Univers : 
+                L'univers de Tekken est riche en intrigues et en rivalités familiales, centré sur la dynastie Mishima. Les personnages principaux, comme Kazuya Mishima, Jin Kazama et Heihachi Mishima, sont impliqués dans des conflits complexes, mêlant vengeance, pouvoir et héritage. Chaque jeu approfondit l'histoire de ces personnages, introduisant de nouveaux protagonistes et antagonistes tout en développant des arcs narratifs captivants.</p>
+        </div>
+        <div class="block3">
+            <div class="videoContainerLeft">
+                <video loop muted autoplay width="100%" height="100%">
+                    <source src="https://static.bandainamcoent.eu/video/tekken8/TEKKEN8-KF02.webm" type="video/webm" />
+                </video>
+            </div>
+            <p>Gameplay
+                Tekken est reconnu pour son gameplay accessible mais profond. Les combats sont basés sur un système de "3D fighting", où les joueurs peuvent se déplacer librement sur plusieurs axes, ce qui permet une grande variété de stratégies et de techniques. Chaque personnage possède un style de combat unique, avec des combos et des mouvements spéciaux, offrant aux joueurs une multitude d'options pour personnaliser leur approche.</p>
+        </div>
+    </section>
+
+{% endblock %}
