@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <section class="homeVideoContainer">
+    <section class="imageSliderContainer">
         <article>
             <img src="../img/IFA-text.png">
             <p>Plongez dans l'univers de Tekken 8 : </p>
@@ -12,10 +12,12 @@
             <p>maîtrisez les stratégies approfondies,</p>
             <p>et rejoignez une communauté de passionnés !</p>
         </article>
-        <div class="homeVideo">
-            <video loop muted autoplay width="100%" height="100%">
-                <source src="../video/IFA-home.webm" type="video/webm" />
-            </video>
+        <div class="imageSlider">
+            <img class="image active" src="../img/cover1.png">
+            <img class="image" src="../img/cover2.png">
+            <img class="image" src="../img/cover3.png">
+            <img class="image" src="../img/cover4.png">
+            <img class="image" src="../img/cover5.png">
         </div>
     </section>
     <section class="tekkenFranchise">
@@ -24,7 +26,7 @@
         <div class="block2">
             <div class="videoContainerRight">
                 <video loop muted autoplay width="100%" height="100%">
-                    <source src="https://static.bandainamcoent.eu/video/tekken8/TEKKEN8-trailer-autoplay.webm" type="video/webm" />
+                    <source src="https://static.bandainamcoent.eu/video/tekken8/TEKKEN8-KF01.webm" type="video/webm" />
                 </video>
             </div>
             <p>Histoire et Univers : 
@@ -38,6 +40,43 @@
             </div>
             <p>Gameplay
                 Tekken est reconnu pour son gameplay accessible mais profond. Les combats sont basés sur un système de "3D fighting", où les joueurs peuvent se déplacer librement sur plusieurs axes, ce qui permet une grande variété de stratégies et de techniques. Chaque personnage possède un style de combat unique, avec des combos et des mouvements spéciaux, offrant aux joueurs une multitude d'options pour personnaliser leur approche.</p>
+        </div>
+        <div class="block4">
+            <div class="videoContainerMiddle">
+<                <video loop muted autoplay>
+                    <source src="https://static.bandainamcoent.eu/video/tekken8-keyfeature-4-new.webm" type="video/webm" />
+                </video>
+                <video loop muted autoplay>
+                    <source src="https://static.bandainamcoent.eu/video/tekken8-keyfeature-1.webm" type="video/webm" />
+                </video>>
+            </div>
+            <p>Caractéristiques Clés
+                Roster Varié: Tekken propose un large éventail de personnages, chacun avec son propre ensemble de mouvements, ce qui permet aux joueurs de trouver celui qui correspond le mieux à leur style.
+                Modes de Jeu: La série inclut divers modes, tels que le mode histoire, des combats en arène, et des défis en ligne, favorisant l'engagement à la fois en solo et en multijoueur.
+                Évolution Technique: Chaque nouvel opus améliore les graphismes, les animations et la physique des combats, rendant l'expérience de jeu toujours plus immersive.
+                Culture et Influence: Tekken a laissé une empreinte durable sur la culture du jeu vidéo, influençant d'autres franchises de combat et suscitant des communautés compétitives à travers le monde, avec des tournois emblématiques comme l'EVO.</p>
+        </div>
+    </section>
+    <section class="roster">
+        <div class="noscroll">
+            <div class="intro">
+                <div class="grid">
+                    <div class="row">
+                        {% for character in characters %}
+                        <div class="row__item">
+                            <div class="row__item-inner">
+                                <div class="row__item-img" style="background-image: url({{character.profilPhoto}})">
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="enter"><a href="{{ path('app_character') }}">Explore</a></div>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/Flip.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
         </div>
     </section>
 

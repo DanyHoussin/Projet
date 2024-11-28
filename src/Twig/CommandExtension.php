@@ -10,6 +10,7 @@ class CommandExtension extends AbstractExtension
     {
         return [
             new TwigFunction('render_command', [$this, 'renderCommand'], ['is_safe' => ['html']]),
+            new TwigFunction('render_age', [$this, 'renderAge'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -62,6 +63,22 @@ class CommandExtension extends AbstractExtension
         return preg_replace_callback($pattern, function ($matches) use ($mapping) {
             return $mapping[$matches[0]];
         }, $command);
+        
+    }
+
+    public function renderAge(string $age): string
+    {
+        $mapping = [
+            '404' => 'Inconnu',
+            
+        ];
+
+        // Crée une expression régulière pour détecter toutes les commandes
+        $pattern = '#' . implode('|', array_map('preg_quote', array_keys($mapping))) . '#';
+
+        return preg_replace_callback($pattern, function ($matches) use ($mapping) {
+            return $mapping[$matches[0]];
+        }, $age);
         
     }
 }

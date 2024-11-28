@@ -10,7 +10,7 @@
     <p><img src="{{ character.profilPhoto }}"></p>
     <p>Style de combat : {{ character.fightingStyle }}</p>
     <p>Nationnalité : {{ character.nationality }}</p>
-    <p>Age : {{ character.age }}</p>
+    <p>Age : {{ render_age(character.age) }}</p>
     <p>Taille : {{ character.height }}</p>
     <p>Poids : {{ character.weight }}</p>
     <p>Background : {{ character.history }}</p>

@@ -18,8 +18,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SteamApiService
 {
-    private $client;
-    private $apiKey;
+    private HttpClientInterface $client;
+    private string $apiKey;
 
     public function __construct(HttpClientInterface $client, string $steamApiKey)
     {

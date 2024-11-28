@@ -10,7 +10,7 @@
         <ul class="character-collection">
             {% for character in characters %}
                 <a href="{{ path('show_character', { 'id':character.id }) }}">
-                    <li class="person {{character.name}}" style="background-image: url({{character.profilPhoto}}); background-size: 500px; background-position-x: 50%; ; background-position-y: 0%">
+                    <li class="person" style="background-image: url({{character.profilPhoto}}); background-size: 500px; background-position-x: 50%; ; background-position-y: 0%">
                         <div class="hover-person"></div>
                         <img src="{{character.profilPhoto}}" alt="{{character.name}}" />
                         <p class="text-name">{{character.name}}</p><br>

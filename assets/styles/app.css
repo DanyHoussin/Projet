@@ -5,6 +5,16 @@
     font-family: "Inria", sans-serif;
   }
 
+body{
+  min-height: 100vh;
+  height: fit-content;
+}
+
+main{
+  min-height: 100vh;
+  height: fit-content;
+}
+
 /* 
 =====================================================
 ====================== HEADER =======================
@@ -222,7 +232,7 @@ a:active {
 =====================================================
  */
 
-.homeVideoContainer{
+.imageSliderContainer{
     width: 100%;
     height: 93vh;
     object-fit: cover;
@@ -231,7 +241,7 @@ a:active {
 
 }
 
-.homeVideoContainer article{
+.imageSliderContainer article{
     position: absolute;
     top: 50px;
     left: 100px;
@@ -239,12 +249,12 @@ a:active {
     background: none;
 }
 
-.homeVideoContainer article img{
+.imageSliderContainer article img{
     width: 500px;
     background: none;
 }
 
-.homeVideoContainer article p{
+.imageSliderContainer article p{
     background: none;
     color: white;
     font-size: large;
@@ -253,13 +263,16 @@ a:active {
 
 
 
-.homeVideo{
+.imageSlider{
     position: relative;
     width: 100%;
     height: 100%;
+    display: flex;
+    transition: 1s;
+    overflow: hidden;
 }
 
-.homeVideo::after{
+.imageSlider::after{
     content: '';
     position: absolute;
     top: 0;
@@ -269,10 +282,18 @@ a:active {
     background: linear-gradient(to right, #000000 0%, #000000 35%, #ffffff00 50%, #ffffff00 100%);
 }
 
-.homeVideo video{
-    width: 100%;
+.imageSlider img{
     height: 100%;
-    object-fit: cover;
+    right: -200px;
+    top: 0;
+    opacity: 0;
+    position: absolute;
+    transition: 1s;
+}
+
+.imageSlider .active{
+    opacity: 1;
+    transition: 1s;
 }
 
 
@@ -296,7 +317,9 @@ a:active {
     color: white;
     padding: 30px;
     border-radius: 16px;
-    filter: drop-shadow(0px 20px 20px hsl(0, 0%, 0%));
+    /* border: solid 5px black; */
+    /* filter: drop-shadow(0px 0px 30px hsl(0, 0%, 0%)); */
+    /* box-shadow: #003674 0px 20px; */
 }
 
 .tekkenFranchise .block1{
@@ -375,112 +398,408 @@ a:active {
     top: 500px;
     right: 100px;
 }
+
+.tekkenFranchise .block4{
+    background: none;
+    width: 100%;
+    height: 1000px;
+    position: relative;
+}
+
+.block4 .videoContainerMiddle{
+    padding: 0;
+    margin-top: 60px;
+    width: 100%;
+    background:none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow: hidden;
+    filter: drop-shadow(0px 20px 20px hsl(0, 0%, 0%));
+}
+
+.tekkenFranchise .block4 video{
+    display: flex;
+    width: 100%;
+    z-index: -99;
+    background:none;
+    transform: translateY(-450px);
+}
+
+.tekkenFranchise .block4 p{
+    position: absolute;
+    width: 60%;
+    height: fit-content;
+    top: 400px;
+    left: 20%;
+}
+
+:root {
+  --page-padding: 1rem;
+  --angle: -15deg;
+  --trans-content: -30vh;
+}
+
+.noscroll {
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+}
+
+.noscroll a {
+  text-decoration: none;
+  color: var(--color-link);
+  outline: none;
+  cursor: pointer;
+}
+
+.noscroll a:hover {
+  text-decoration: underline;
+  color: var(--color-link-hover);
+  outline: none;
+}
+
+.noscroll a:focus {
+  outline: none;
+  background: lightgrey;
+}
+
+.noscroll a:focus:not(:focus-visible) {
+  background: transparent;
+}
+
+.noscroll a:focus-visible {
+  outline: 2px solid red;
+  background: transparent;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.noscroll .intro {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.noscroll .intro::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #7878786e 0%, transparent 100%);
+  background-size: 250px, 100%;
+  pointer-events: none;
+}
+
+.noscroll .intro--open {
+  height: 80vh;
+}
+
+.noscroll .grid {
+  gap: 1rem;
+  flex: none;
+  position: relative;
+  width: 200vw;
+  height: 200vh;
+  display: grid;
+  top: 50%;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: 100%;
+  transform: rotate(var(--angle));
+  transform-origin: center center;
+}
+
+.noscroll .row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(7, 1fr);
+  will-change: transform, filter;
+}
+
+.noscroll .row__item {
+  position: relative;
+  height: auto;
+  width: 100%;
+  height: 300px;
+}
+
+.noscroll .row__item-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.noscroll .row__item-img {
+  width: 150%;
+  height: 100%;
+  background-size: cover;
+  background-position: 100% 0%;
+  position: absolute;
+  top: 0;
+  left: -25%;
+}
+
+.noscroll .row__item-img--large {
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  margin: -50vh 0 0 -50vw;
+  background-position: 50% 70%;
+  will-change: transform, filter;
+}
+
+.noscroll .enter {
+  color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  text-transform: uppercase;
+  padding: 1.75rem 4rem;
+  font-weight: 600;
+  z-index: 100;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  background: url(https://github.com/misalagp/imgs/blob/main/noise.png?raw=true),
+    radial-gradient(circle, transparent 0%, transparent 100%);
+  background-size: 250px, 100%;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.noscroll .enter::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 3rem;
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.noscroll .enter:focus::before,
+.noscroll .enter:hover::before {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.noscroll .enter a{
+  text-decoration: none;
+}
+
+.noscroll .fullview {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.noscroll .fullview .row__item-inner {
+  border-radius: 0px;
+}
+
+.noscroll .content {
+  padding: var(--page-padding);
+  position: relative;
+}
+
+.noscroll .content::before {
+  content: "";
+  position: absolute;
+  border-radius: 10px 10px 0 0;
+  height: calc(100% + (-1) * var(--trans-content));
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background: url(https://github.com/misalagp/imgs/blob/main/noise.png?raw=true),
+    radial-gradient(at top, #688d68 0%, #ddd 100%);
+  background-size: 250px, 100%;
+}
+
+.noscroll .content__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.noscroll .content__header h2 {
+  font-size: 2rem;
+  font-family: "Anton", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  margin: 6rem 0 10vh;
+  line-height: 0.9;
+}
+
+.noscroll .content__text {
+  text-wrap: balance;
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+  padding: 0 5vw;
+}
+
+.noscroll .content__text p {
+  max-width: 700px;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin: 0;
+  margin-left: auto;
+}
+
+.noscroll .content__text p.highlight {
+  max-width: 1000px;
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
+
+.noscroll .content__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20vh;
+  transform: translateY(calc(-1 * var(--trans-content)));
+}
+
+@media screen and (min-width: 53em) {
+  body {
+    --page-padding: 2rem 3rem;
+  }
+  .content__header h2 {
+    font-size: clamp(2rem, 20vh, 16rem);
+  }
+  .content__text p.highlight {
+    font-size: clamp(2rem, 7vh, 4rem);
+  }
+}
+
+
+
 /* 
 =====================================================
 ================= LISTE DES PERSOS ==================
 =====================================================
  */
 
-
+.container {
+  width: 100%;
+  height: 3000px;
+  display: flex;
+  justify-content: center;
+}
   
-  body {
-    height: 100vh;
+.character-collection {
+  height: 80%;
+  width: 100%;
+  max-height: 40vh;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  list-style: none;
+  flex-wrap: wrap;
+}
 
-    .container {
-      width: 100%;
-      height: 100%;
-      display: grid;
-    }
+.character-collection a{
+  padding-top: 30px;
+  width: 250px;
+  height: fit-content;
+}
   
-    ul.character-collection {
-      height: 80%;
-      width: 100%;
-      max-height: 40vh;
-      display: flex;
-      gap: 30px;
-      list-style: none;
-
-      a{
-          width: 250px;
-          height: fit-content;
-      }
-  
-      li {
-          display: flex;
-        width: 250px;
-        height: 300px;
-        position: relative;
-        background-position: center -40px;
-        background-repeat: no-repeat;
-        background-size: 700%;
-        background-color: rgb(7, 14, 22);
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-        pointer-events: none;
-        text-align: center;
-        transition: 0.3s;
+.character-collection li {
+  display: flex;
+  width: 250px;
+  height: 300px;
+  position: relative;
+  background-position: center -40px;
+  background-repeat: no-repeat;
+  background-size: 700%;
+  background-color: rgb(7, 14, 22);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  pointer-events: none;
+  text-align: center;
+  transition: 0.3s;
+}
           
-        &:hover {
-          box-shadow: rgb(0, 0, 0) 0px 20px 30px -10px;
-          background-image: none;
-          z-index: 10;
-          transform: scale(1.1);
-        }
+.character-collection li:hover {
+  box-shadow: rgb(0, 0, 0) 0px 20px 30px -10px;
+  background-image: none;
+  z-index: 10;
+  transform: scale(1.1);
+}
   
-        img {
-          width: 500px;
-          opacity: 0;
-          position: absolute;
-          top: -25%;
-          left: -50%;
-          transition: 0.3s;
-        }
+.character-collection img {
+  width: 500px;
+  opacity: 0;
+  position: absolute;
+  top: -25%;
+  left: -50%;
+  transition: 0.3s;
+}
   
-        p {
-          display: none;
-          opacity: 0;
-          color: rgb(219, 219, 219);
-          font-weight: bold;
-          font-size: 1.2rem;
-          text-transform: capitalize;
-          text-shadow: 0px 2px 8px black;
-          z-index: 20;
-        }
+.character-collection p {
+  position: absolute;
+  display: inline;
+  opacity: 1;
+  color: rgb(219, 219, 219);
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  text-shadow: 0px 2px 8px black;
+  left: -10px;
+  z-index: 30;
+  right: -10px;
+  bottom: 10px;
+}
   
-        .hover-person {
-          width: 100%;
-          height: 100%;
-          filter: grayscale(200%) opacity(0%);
-          position: absolute;
-          background: rgb(52, 52, 52);
-          pointer-events: auto;
-          transition: 0.3s;
-  
-          &:hover {
-            filter: grayscale(0%) opacity(90%);
-            transition: 0.3s;
-          }
+.hover-person {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(200%) opacity(0%);
+  position: absolute;
+  background: rgb(52, 52, 52);
+  pointer-events: auto;
+  transition: 0.3s;
+}
+
+.hover-person:hover {
+  filter: grayscale(0%) opacity(90%);
+  transition: 0.3s;
+}
           
-          &:hover ~ img {
-            opacity: 1;
-            display: block;
-            position: absolute;
-            z-index: 10;
-            top: -25%;
-            left: -50%;
-            width: 500px;
-            transition: opacity 0.3s;
-          }
+.hover-person:hover ~ img {
+  opacity: 1;
+  display: block;
+  position: absolute;
+  z-index: 35;
+  top: -25%;
+  left: -50%;
+  width: 500px;
+  transition: 0.3s;
+}
   
-          & ~ p {
-            opacity: 1;
-            display: inline;
-            position: absolute;
-            left: -10px;
-            right: -10px;
-            bottom: 10px;
-            transition: opacity 0.4s;
-          }
-        }
-      }
-    }
+.hover-person:hover ~ p {
+  display: inline;
+  position: absolute;
+  left: -10px;
+  z-index: 36;
+  right: -10px;
+  bottom: 10px;
 }
