@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Blows;
 use App\Entity\Character;
+use App\Form\NewCharacterType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +28,28 @@ class CharacterController extends AbstractController
         return $this->render('character/show.html.twig', [
             'character' => $character,
             'blows' => $character->getBlows()
+        ]);
+    }
+
+    #[Route('/newCharacter', name: 'add_character')]
+    public function newCharacter(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $character = new Character();
+    
+        $formCharacter = $this->createForm(NewCharacterType::class, $character);
+        $formCharacter->handleRequest($request);
+    
+        if ($formCharacter->isSubmitted() && $formCharacter->isValid()) {
+            
+            // Sauvegarder dans la base de données
+            $entityManager->persist($character);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_character');
+        }
+    
+        return $this->render('character/newCharacter.html.twig', [
+            'newCharacter' => $formCharacter->createView(),
         ]);
     }
 

@@ -18,12 +18,10 @@
         <header>
             <nav>
                 <div id="nav-left">
-                    {# <?php
-                    //if(App\Session::isAdmin()){
-                        ?>
-                        <!-- <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a> -->
-                        <?php //} ?> #}
-                        Logo
+                    <p>Logo</p>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD') %}
+                        <a href="{{ path('app_profils') }}">Listes des utilisateurs</a>
+                    {% endif %}
                 </div>
                 <div id="nav-right">
                     {# // si l'utilisateur est connecté  #}

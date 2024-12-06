@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des personnages{% endblock %}
+
+{% block body %}
+
+    <h1>Ajouter un nouveau personange</h1>
+
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+
+        {{ form_errors(newCharacter) }}
+
+        {{ form_start(newCharacter) }}
+            {{ form_row(newCharacter.name) }}
+            
+            {{ form_row(newCharacter.fightingStyle) }}
+
+            {{ form_row(newCharacter.nationality) }}
+
+            {{ form_row(newCharacter.height) }}
+
+            {{ form_row(newCharacter.weight) }}
+
+            {{ form_row(newCharacter.age) }}
+
+            {{ form_row(newCharacter.profilPhoto) }}
+
+            {{ form_row(newCharacter.history) }}
+            <button type="submit" class="btn">Créer</button>
+
+        {{ form_end(newCharacter) }}
+
+    {% else %}
+        <p><strong>Vous n'êtes pas autorisé à voir cette page.</strong></p>
+        <a href="{{ path('app_home') }}">Accueil</a>
+    {% endif %}
+
+{% endblock %}

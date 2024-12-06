@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,4 +33,18 @@ class ProfilController extends AbstractController
 
         ]);
     }
+
+    #[Route('/profil/delete/{id}', name: 'profil_delete', methods: ['POST', 'DELETE'])]
+    public function deleteUser(Request $request, EntityManagerInterface $entityManager, User $user, Security $security): Response
+    {
+        if ($security->isGranted('ROLE_ADMIN') || $security->getUser() === $user) {
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+        $this->addFlash('success', 'Utilisateur supprimé avec succès');
+
+        }
+        return $this->redirectToRoute('app_profils');
+    }
 }
+
