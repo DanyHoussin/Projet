@@ -87,6 +87,7 @@ class CommandExtension extends AbstractExtension
     {
         $mapping = [
             'ROLE_USER' => 'Membre',
+            'ROLE_ADMIN' => 'Administrateur',
             
         ];
 

@@ -14,12 +14,14 @@ class EditProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
             ->add('pseudo')
             ->add('profilPhoto')
             ->add('favoriteCharacter', EntityType::class, [
                 'class' => Character::class,
                 'choice_label' => 'name',
+                'placeholder' => 'Aucun personnage favori',
+                'required' => false,
+                'empty_data' => null,
             ])
         ;
     }

@@ -27,11 +27,15 @@ class ProfilController extends AbstractController
     }
 
     #[Route('/profil/{id}', name: 'show_profil')]
-    public function userInfo(User $user): Response
+    public function userInfo(User $user, EntityManagerInterface $entityManager): Response
     {
+        $favoriteCharacter = null;
+        if ($user->getFavoriteCharacter()) {
+            $favoriteCharacter = $user->getFavoriteCharacter();
+        }
         return $this->render('profil/user.html.twig', [
-            'controller_name' => 'ProfilController',
             'user' => $user,
+            'favoriteCharacter' => $favoriteCharacter,
 
         ]);
     }
@@ -40,7 +44,11 @@ class ProfilController extends AbstractController
     public function myUserInfo(Request $request, Security $security, EntityManagerInterface $entityManager): Response
     {
         $user = $security->getUser();
-        $favoriteCharacter = $entityManager->getRepository(Character::class)->find($user->getFavoriteCharacter());
+
+        $favoriteCharacter = null;
+        if ($user->getFavoriteCharacter()) {
+            $favoriteCharacter = $entityManager->getRepository(Character::class)->find($user->getFavoriteCharacter());
+        }
         return $this->render('profil/user.html.twig', [
             'user' => $user,
             'favoriteCharacter' => $favoriteCharacter,

@@ -7,10 +7,9 @@
     {{ form_errors(editProfil) }}
 
     {{ form_start(editProfil) }}
-        {{ form_row(editProfil.profilPhoto) }}
-        {{ form_row(editProfil.pseudo) }}
-        {{ form_row(editProfil.email) }}
-        {{ form_row(editProfil.favoriteCharacter) }}
+        <p>Photo de profil : {{ form_row(editProfil.profilPhoto, {'label': false})}}</p>
+        <p>Pseudo : {{ form_row(editProfil.pseudo, {'label': false}) }}</p>
+        <p>Personnage favori : {{ form_row(editProfil.favoriteCharacter, {'label': false}) }}</p>
             <button type="submit" class="btn">Appliquer</button>
     {{ form_end(editProfil) }}
 {% endblock %}
