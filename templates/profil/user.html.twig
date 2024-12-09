@@ -4,7 +4,18 @@
 
 {% block body %}
 
-    <h2>{{user.pseudo}}</h2>
     <img src="{{user.profilPhoto}}">
+    <h2>{{user.pseudo}}</h2>
+    <ul>
+        {% for role in user.roles %}
+            <li>{{render_role(role)}}</li>
+        {% endfor %}
+    </ul>
+    <p>Email : {{user.email}}</p>
+    <p>Date de création : {{user.creationDate|date('d/m/Y')}}</p>
+    <p>Grade point : {{user.gradePoint}}</p>
+    <p>Personnage favori : {{favoriteCharacter.name}}</p>
+    <img src="{{favoriteCharacter.profilPhoto}}">
+    <a href="{{ path('edit_myprofil') }}"><i class="fa-solid fa-pen"></i></a>
 
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+    {{ form_errors(editProfil) }}
+
+    {{ form_start(editProfil) }}
+        {{ form_row(editProfil.profilPhoto) }}
+        {{ form_row(editProfil.pseudo) }}
+        {{ form_row(editProfil.email) }}
+        {{ form_row(editProfil.favoriteCharacter) }}
+            <button type="submit" class="btn">Appliquer</button>
+    {{ form_end(editProfil) }}
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Character;
+use App\Form\EditProfilType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -34,6 +36,40 @@ class ProfilController extends AbstractController
         ]);
     }
 
+    #[Route('/monprofil', name: 'show_myprofil')]
+    public function myUserInfo(Request $request, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        $user = $security->getUser();
+        $favoriteCharacter = $entityManager->getRepository(Character::class)->find($user->getFavoriteCharacter());
+        return $this->render('profil/user.html.twig', [
+            'user' => $user,
+            'favoriteCharacter' => $favoriteCharacter,
+        ]);
+    }
+
+    #[Route('/editProfil', name: 'edit_myprofil')]
+    public function editUserInfo(Request $request, Security $security, EntityManagerInterface $entityManager): Response
+    {
+        $user = $security->getUser();
+
+        $formEditProfil = $this->createForm(EditProfilType::class, $user);
+        $formEditProfil->handleRequest($request);
+
+        if ($formEditProfil->isSubmitted() && $formEditProfil->isValid()) {
+            
+            // Sauvegarder dans la base de données
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_myprofil');
+        }
+        $user = $security->getUser();
+        return $this->render('profil/editUser.html.twig', [
+            'editProfil' => $formEditProfil->createView(),
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/profil/delete/{id}', name: 'profil_delete', methods: ['POST', 'DELETE'])]
     public function deleteUser(Request $request, EntityManagerInterface $entityManager, User $user, Security $security): Response
     {
@@ -41,7 +77,7 @@ class ProfilController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
 
-        $this->addFlash('success', 'Utilisateur supprimé avec succès');
+            $this->addFlash('success', 'Utilisateur supprimé avec succès');
 
         }
         return $this->redirectToRoute('app_profils');

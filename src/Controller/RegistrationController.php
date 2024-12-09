@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setCreationDate(new \DateTime());
-            $user->setProfilPhoto("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fuser_149071&psig=AOvVaw0SmIg4opEatF0P7qm03zSv&ust=1731059420880000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKjw3YD5yYkDFQAAAAAdAAAAABAE");
+            $user->setProfilPhoto("../img/profil_icon.png");
 
             $entityManager->persist($user);
             $entityManager->flush();
