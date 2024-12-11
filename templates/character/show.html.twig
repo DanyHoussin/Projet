@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <a href="/listCharacters">Retourner vers la liste des personnages</a>
+    <a href="{{ path('app_character') }}">Retourner vers la liste des personnages</a>
     <h1>{{ character.name }}</h1>
 
     <p><img src="{{ character.profilPhoto }}"></p>
@@ -16,6 +16,9 @@
     <p>Background : {{ character.history }}</p>
 
     <h1>Move list</h1>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+        <a href="{{ path('addBlows_character', { 'id':character.id }) }}">Ajouter un coup</a>
+    {% endif %}
     {% for blow in blows %}
         {{ blow.name }} {{ render_command(blow.movelist) }}<br>
     {% endfor %}

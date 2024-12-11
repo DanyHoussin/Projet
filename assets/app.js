@@ -25,7 +25,7 @@ function showNextImage() {
     images[currentIndex].classList.add('active');
 }
 
-// Change l'image toutes les 3 secondes
+// Change l'image toutes les 5 secondes
 setInterval(showNextImage, 5000);
 
 

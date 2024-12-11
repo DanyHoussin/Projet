@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Blows;
 use App\Entity\Character;
+use App\Form\AddBlowsType;
 use App\Form\NewCharacterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,32 @@ class CharacterController extends AbstractController
         ]);
     }
 
+    #[Route('/character/{id}/addBlows', name: 'addBlows_character')]
+    public function addBlowsForCharacter(Request $request, EntityManagerInterface $entityManager, Character $character): Response
+    {
+
+        $blows = new Blows();
+        $blows->setChosenCharacter($character);
+        $formAddBlows = $this->createForm(AddBlowsType::class, $blows, [
+            'character' => $character, // Passez le personnage dans les options du formulaire
+        ]);
+        $formAddBlows->handleRequest($request);
+
+        if ($formAddBlows->isSubmitted() && $formAddBlows->isValid()) {
+            
+
+            $entityManager->persist($blows);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_character', ['id' => $character->getId()]);
+        }
+
+        return $this->render('character/addBlowsForCharacter.html.twig', [
+            'addBlows' => $formAddBlows->createView(),
+            'character' => $character,
+        ]);
+    }
+
     #[Route('/newCharacter', name: 'add_character')]
     public function newCharacter(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -53,12 +80,4 @@ class CharacterController extends AbstractController
         ]);
     }
 
-    #[Route('/moves/{id}', name: 'show_moves')]
-    public function moveslist(Character $character): Response
-    {
-        return $this->render('character/show.html.twig', [
-            'character' => $character,
-            'blows' => $character->getBlows()
-        ]);
-    }
 }

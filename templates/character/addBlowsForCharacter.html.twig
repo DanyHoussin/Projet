@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MOD')%}
+
+<h1>Ajouter un nouveau coup pour {{ character.name }}</h1>
+
+
+    {{ form_errors(addBlows) }}
+
+    {{ form_start(addBlows) }}
+
+        {{ form_row(addBlows.movelist) }}
+        
+        {{ form_row(addBlows.name) }}
+
+        {{ form_row(addBlows.chosenCharacter) }}
+
+        <button type="submit" class="btn">Ajouter</button>
+
+    {{ form_end(addBlows) }}
+
+    {% else %}
+        <p><strong>Vous n'êtes pas autorisé à voir cette page.</strong></p>
+        <a href="{{ path('app_home') }}">Accueil</a>
+    {% endif %}
+
+{% endblock %}
