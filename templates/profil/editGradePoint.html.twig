@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_DEV') or is_granted('ROLE_LEAD')%}
+        {{ form_errors(editGradePoint) }}
+
+        {{ form_start(editGradePoint) }}
+            <p>Point de grade : {{ form_row(editGradePoint.gradePoint, {'label': false})}}</p>
+                <button type="submit" class="btn">Appliquer</button>
+        {{ form_end(editGradePoint) }}
+    {% else %}
+        
+        Vous n'avez pas accès à cette page.
+
+    {% endif %}
+{% endblock %}

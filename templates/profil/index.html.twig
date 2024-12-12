@@ -11,7 +11,8 @@
             <a href="{{ path('show_profil', { 'id':user.id }) }}">
                 <img src="{{ user.profilPhoto }}" alt="{{ user.pseudo }}" />
                 <p class="text-name">{{user.pseudo}}</p>
-                <p>{{ user.creationDate|date('Y-m-d H:i:s') }}</p><br>
+                <p>{{ user.creationDate|date('Y-m-d H:i:s') }}</p>
+                <img src="{{ user.grade.icon }}"><br>
             </a>
             <form action="{{ path('profil_delete', {id: user.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ? Il est conseillé de bannir la personne concerné, ceci doit être en dernier recours.');">
                 <button type="submit">Supprimer</button>

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Character;
 use App\Form\EditProfilType;
+use App\Service\UserService;
+use App\Form\EditGradePointType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -74,6 +76,29 @@ class ProfilController extends AbstractController
         $user = $security->getUser();
         return $this->render('profil/editUser.html.twig', [
             'editProfil' => $formEditProfil->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/profil/{id}/editGradePoint', name: 'edit_gradePoint')]
+    public function editGradePoint(Request $request, Security $security, UserService $userService, EntityManagerInterface $entityManager, User $user): Response
+    {
+
+        $formEditGradePoint = $this->createForm(EditGradePointType::class, $user);
+        $formEditGradePoint->handleRequest($request);
+
+        if ($formEditGradePoint->isSubmitted() && $formEditGradePoint->isValid()) {
+            
+            // Sauvegarder dans la base de données
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $userService->addGradePoints($user, 0);
+
+            return $this->redirectToRoute('show_profil', ['id' => $user->getId()]);
+        }
+        return $this->render('profil/editGradePoint.html.twig', [
+            'editGradePoint' => $formEditGradePoint->createView(),
             'user' => $user,
         ]);
     }

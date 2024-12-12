@@ -92,7 +92,8 @@ class CommandExtension extends AbstractExtension
         $mapping = [
             'ROLE_USER' => 'Membre',
             'ROLE_ADMIN' => 'Administrateur',
-            
+            'ROLE_DEV' => 'Développeur',
+            'ROLE_LEAD' => 'Fondateur',
         ];
 
         // Crée une expression régulière pour détecter toutes les commandes

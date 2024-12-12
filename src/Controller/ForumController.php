@@ -62,7 +62,6 @@ class ForumController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
             
-            $pointsEarned = 10; // Points gagnés par message
             $userService->addGradePoints($user, 10);
             
             return $this->redirectToRoute('show_listPostsInTopic', ['id' => $post->getTopic()->getId()]);
@@ -76,7 +75,7 @@ class ForumController extends AbstractController
     }
 
     #[Route('/newTopicInCategory/{id}', name: 'show_newTopicInCategory')]
-    public function newTopic(Category $category, Request $request, Security $security, EntityManagerInterface $entityManager): Response
+    public function newTopic(Category $category, Request $request, UserService $userService, Security $security, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
         $topic = new Topic();

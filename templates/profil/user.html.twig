@@ -12,9 +12,12 @@
         {% endfor %}
     </ul>
     <p>Grade : {{user.grade.gradeName}} <img src="{{user.grade.icon}}"></p>
+    <p>Grade point : {{user.gradePoint}}</p>
+    {% if is_granted('ROLE_DEV') or is_granted('ROLE_LEAD')%}
+        <p><a href="{{ path('edit_gradePoint', { 'id':user.id }) }}">Changer les points de grade</a></p>
+    {% endif %}
     <p>Email : {{user.email}}</p>
     <p>Date de création : {{user.creationDate|date('d/m/Y')}}</p>
-    <p>Grade point : {{user.gradePoint}}</p>
     {% if (user.favoriteCharacter) %}
         <p>Personnage favori : {{favoriteCharacter.name}}</p>
         <img src="{{favoriteCharacter.profilPhoto}}">
