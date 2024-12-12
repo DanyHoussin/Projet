@@ -46,7 +46,7 @@
         </div>
         <div class="block4">
             <div class="videoContainerMiddle">
-<                <video loop muted autoplay>
+<               <video loop muted autoplay>
                     <source src="https://static.bandainamcoent.eu/video/tekken8-keyfeature-4-new.webm" type="video/webm" />
                 </video>
                 <video loop muted autoplay>
@@ -61,26 +61,13 @@
         </div>
     </section>
     <section class="roster">
-        <div class="noscroll">
-            <div class="intro">
-                <div class="grid">
-                    <div class="row">
-                        {% for character in characters %}
-                        <div class="row__item">
-                            <div class="row__item-inner">
-                                <div class="row__item-img" style="background-image: url({{character.profilPhoto}})">
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="enter"><a href="{{ path('app_character') }}">Explore</a></div>
-            </div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/Flip.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-        </div>
+        Listes des personnnages
+        <video loop muted autoplay>
+            <source src="https://static.bandainamcoent.eu/video/tekken8-keyfeature-1.webm" type="video/webm" />
+        </video>
+    </section>
+    <section class="defi">
+
     </section>
 
 {% endblock %}

@@ -38,6 +38,7 @@ class RegistrationController extends AbstractController
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setCreationDate(new \DateTime());
             $user->setProfilPhoto("../img/profil_icon.png");
+            $user->setGrade($entityManager->getRepository(Grade::class)->find(1));
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -53,7 +54,7 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_character');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [

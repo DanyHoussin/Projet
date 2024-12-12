@@ -69,6 +69,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne]
     private ?Character $favoriteCharacter = null;
 
+    #[ORM\ManyToOne(inversedBy: 'User')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Grade $grade = null;
+
     public function __construct()
     {
         $this->participationTournois = new ArrayCollection();
@@ -280,6 +284,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->favoriteCharacter = $favoriteCharacter;
 
         return $this;
+    }
+
+    public function getGrade(): ?Grade
+    {
+        return $this->grade;
+    }
+
+    public function setGrade(?Grade $grade): static
+    {
+        $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function updateGrade(EntityManagerInterface $entityManager): void
+    {
+        // Récupérez tous les grades ordonnés par points minimum requis
+        $grades = $entityManager->getRepository(Grade::class)->findBy([], ['requiredPoints' => 'ASC']);
+
+        foreach ($grades as $grade) {
+            if ($this->gradePoint >= $grade->getRequiredPoints()) {
+                $this->setGrade($grade);
+            }
+        }
     }
 
 }

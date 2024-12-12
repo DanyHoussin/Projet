@@ -8,6 +8,7 @@ use App\Entity\Topic;
 use App\Entity\Category;
 use App\Form\NewPostType;
 use App\Form\NewTopicType;
+use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +43,7 @@ class ForumController extends AbstractController
     }
 
     #[Route('/listPostsInTopic/{id}', name: 'show_listPostsInTopic')]
-    public function listPosts(Topic $topic, Request $request, Security $security, EntityManagerInterface $entityManager): Response
+    public function listPosts(Topic $topic, Request $request, UserService $userService, Security $security, EntityManagerInterface $entityManager): Response
     {
         $post = new Post();
     
@@ -60,7 +61,10 @@ class ForumController extends AbstractController
             // Sauvegarder dans la base de données
             $entityManager->persist($post);
             $entityManager->flush();
-    
+            
+            $pointsEarned = 10; // Points gagnés par message
+            $userService->addGradePoints($user, 10);
+            
             return $this->redirectToRoute('show_listPostsInTopic', ['id' => $post->getTopic()->getId()]);
         }
     
@@ -103,6 +107,8 @@ class ForumController extends AbstractController
             // Sauvegarder dans la base de données
             $entityManager->persist($post);
             $entityManager->flush();
+
+            $userService->addGradePoints($user, 20);
 
             return $this->redirectToRoute('show_listTopicsInCategory', ['id' => $topic->getCategory()->getId()]);
         }

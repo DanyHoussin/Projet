@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 *{
     box-sizing: border-box;
     padding: 0;
@@ -322,13 +326,14 @@ a:active {
 }
 
 .tekkenFranchise p{
-    background: linear-gradient(to bottom, #002553 0%, #003F87 100%);;
+    background: linear-gradient(to bottom, #002553 0%, #003f87 100%);;
     color: white;
     padding: 30px;
     border-radius: 16px;
+    /* box-shadow: rgba(75, 46, 240, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px; */
     /* border: solid 5px black; */
-    /* filter: drop-shadow(0px 0px 30px hsl(0, 0%, 0%)); */
-    /* box-shadow: #003674 0px 20px; */
+    filter: drop-shadow(0px 20px 20px hsl(0, 0%, 6%));
+    box-shadow: #002f64 0px 20px;
 }
 
 .tekkenFranchise .block1{
@@ -444,260 +449,23 @@ a:active {
     left: 20%;
 }
 
-:root {
-  --page-padding: 1rem;
-  --angle: -15deg;
-  --trans-content: -30vh;
-}
-
-.noscroll {
-  height: 100dvh;
+.roster{
+  position: relative;
   width: 100%;
+  height: 100%;
+  display: flex;
+  transition: 1s;
   overflow: hidden;
-  top: 0;
 }
 
-.noscroll a {
-  text-decoration: none;
-  color: var(--color-link);
-  outline: none;
-  cursor: pointer;
-}
-
-.noscroll a:hover {
-  text-decoration: underline;
-  color: var(--color-link-hover);
-  outline: none;
-}
-
-.noscroll a:focus {
-  outline: none;
-  background: lightgrey;
-}
-
-.noscroll a:focus:not(:focus-visible) {
-  background: transparent;
-}
-
-.noscroll a:focus-visible {
-  outline: 2px solid red;
-  background: transparent;
-}
-
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.noscroll .intro {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;
-}
-
-.noscroll .intro::after {
-  content: "";
+.roster::after{
+  content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0%;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, #7878786e 0%, transparent 100%);
-  background-size: 250px, 100%;
-  pointer-events: none;
-}
-
-.noscroll .intro--open {
-  height: 80vh;
-}
-
-.noscroll .grid {
-  gap: 1rem;
-  flex: none;
-  position: relative;
-  width: 200vw;
-  height: 200vh;
-  display: grid;
-  top: 50%;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-columns: 100%;
-  transform: rotate(var(--angle));
-  transform-origin: center center;
-}
-
-.noscroll .row {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(7, 1fr);
-  will-change: transform, filter;
-}
-
-.noscroll .row__item {
-  position: relative;
-  height: auto;
-  width: 100%;
-  height: 300px;
-}
-
-.noscroll .row__item-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
-.noscroll .row__item-img {
-  width: 150%;
-  height: 100%;
-  background-size: cover;
-  background-position: 100% 0%;
-  position: absolute;
-  top: 0;
-  left: -25%;
-}
-
-.noscroll .row__item-img--large {
-  width: 100vw;
-  height: 100vh;
-  top: 50%;
-  left: 50%;
-  margin: -50vh 0 0 -50vw;
-  background-position: 50% 70%;
-  will-change: transform, filter;
-}
-
-.noscroll .enter {
-  color: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  text-transform: uppercase;
-  padding: 1.75rem 4rem;
-  font-weight: 600;
-  z-index: 100;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.5rem;
-  background: url(https://github.com/misalagp/imgs/blob/main/noise.png?raw=true),
-    radial-gradient(circle, transparent 0%, transparent 100%);
-  background-size: 250px, 100%;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.noscroll .enter::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 3rem;
-  transition: all 0.3s;
-  z-index: -1;
-}
-
-.noscroll .enter:focus::before,
-.noscroll .enter:hover::before {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.noscroll .enter a{
-  text-decoration: none;
-}
-
-.noscroll .fullview {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-}
-
-.noscroll .fullview .row__item-inner {
-  border-radius: 0px;
-}
-
-.noscroll .content {
-  padding: var(--page-padding);
-  position: relative;
-}
-
-.noscroll .content::before {
-  content: "";
-  position: absolute;
-  border-radius: 10px 10px 0 0;
-  height: calc(100% + (-1) * var(--trans-content));
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  background: url(https://github.com/misalagp/imgs/blob/main/noise.png?raw=true),
-    radial-gradient(at top, #688d68 0%, #ddd 100%);
-  background-size: 250px, 100%;
-}
-
-.noscroll .content__nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
-.noscroll .content__header h2 {
-  font-size: 2rem;
-  font-family: "Anton", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  margin: 6rem 0 10vh;
-  line-height: 0.9;
-}
-
-.noscroll .content__text {
-  text-wrap: balance;
-  display: flex;
-  flex-direction: column;
-  gap: 10vh;
-  padding: 0 5vw;
-}
-
-.noscroll .content__text p {
-  max-width: 700px;
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin: 0;
-  margin-left: auto;
-}
-
-.noscroll .content__text p.highlight {
-  max-width: 1000px;
-  font-size: 2rem;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-}
-
-.noscroll .content__footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20vh;
-  transform: translateY(calc(-1 * var(--trans-content)));
-}
-
-@media screen and (min-width: 53em) {
-  body {
-    --page-padding: 2rem 3rem;
-  }
-  .content__header h2 {
-    font-size: clamp(2rem, 20vh, 16rem);
-  }
-  .content__text p.highlight {
-    font-size: clamp(2rem, 7vh, 4rem);
-  }
+  background: linear-gradient(to left, #002c5f 0%, #001b3b 30%, #001b3bd1 35%, #ffffff00 50%, #ffffff00 100%);
 }
 
 
