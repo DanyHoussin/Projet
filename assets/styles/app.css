@@ -309,6 +309,28 @@ a:active {
     transition: 1s;
 }
 
+.News{
+    /* background-color: #8d0002; */
+    display:flex;
+    flex-direction: column;
+}
+
+.News ul{
+
+}
+
+.News li{
+    position: relative;
+    height: 500px;
+    width: 400px;
+}
+
+.News li img{
+    width: 400px;
+    position: absolute;
+    top:0;
+    left:0;
+}
 
 .tekkenFranchise{
     padding: 40px 0px;

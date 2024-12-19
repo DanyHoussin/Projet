@@ -23,6 +23,23 @@
             <img class="image" src="../img/cover5.png">
         </div>
     </section>
+    <section class="News">
+        <h1>Actualités Steam</h1>
+        <ul>
+            {% for news in newsGame %}
+                <li>
+                    <h2>{{ news.title }}</h2>
+                    <p>{{ news.contents }}</p>
+                    <a href="{{ news.url }}">Lire la suite</a>
+                    {% if news.image %}
+                        <img src="{{ news.image }}" alt="{{ news.title }}" />
+                    {% else %}
+                        <p>Aucune image disponible.</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
     <section class="tekkenFranchise">
         <img src="../img/Tekken-8-logo.png">
         <p class="block1">La franchise Tekken est l'une des séries de jeux de combat les plus emblématiques et influentes de l'histoire du jeu vidéo. Développée par Bandai Namco Entertainment, elle a été lancée en 1994 avec le premier Tekken sur PlayStation. Depuis lors, la série a connu de nombreux épisodes, spin-offs et adaptations, se taillant une place de choix dans le cœur des joueurs.</p>
