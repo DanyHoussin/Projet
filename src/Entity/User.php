@@ -73,10 +73,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Grade $grade = null;
 
+    /**
+     * @var Collection<int, Badge>
+     */
+    #[ORM\ManyToMany(targetEntity: Badge::class, inversedBy: 'users')]
+    private Collection $Badges;
+
     public function __construct()
     {
         $this->participationTournois = new ArrayCollection();
         $this->participationDefis = new ArrayCollection();
+        $this->Badges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -308,6 +315,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $this->setGrade($grade);
             }
         }
+    }
+
+    /**
+     * @return Collection<int, Badge>
+     */
+    public function getBadges(): Collection
+    {
+        return $this->Badges;
+    }
+
+    public function addBadge(Badge $badge): static
+    {
+        if (!$this->Badges->contains($badge)) {
+            $this->Badges->add($badge);
+        }
+
+        return $this;
+    }
+
+    public function removeBadge(Badge $badge): static
+    {
+        $this->Badges->removeElement($badge);
+
+        return $this;
     }
 
 }

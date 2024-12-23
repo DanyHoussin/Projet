@@ -5,6 +5,11 @@
 {% block body %}
 
     <img src="{{user.profilPhoto}}">
+    {% for badge in user.getBadges %}
+        <li>
+            <img src="{{badge.badgeIcon}}">
+        </li>
+    {% endfor %}
     <h2>{{user.pseudo}}</h2>
     <ul>
         {% for role in user.roles %}

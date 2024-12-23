@@ -310,26 +310,43 @@ a:active {
 }
 
 .News{
-    /* background-color: #8d0002; */
+    padding: 10px;
+    background-color:black;
     display:flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .News ul{
-
+    display:flex;
 }
 
 .News li{
-    position: relative;
+    list-style: none;
     height: 500px;
     width: 400px;
+    font-size: small;
+    color:white;
+    background: 
+        radial-gradient(ellipse at top left, #e06b6b, transparent),
+        radial-gradient(ellipse at bottom right, #9d0000, transparent);
+    margin: 50px 10px;
 }
 
 .News li img{
     width: 400px;
+}
+
+.News li article{
+    padding: 20px;
+    position: relative;
+    height: 270px;
+}
+
+.News li a{
     position: absolute;
-    top:0;
-    left:0;
+    bottom:20px;
+    right:20px;
 }
 
 .tekkenFranchise{
