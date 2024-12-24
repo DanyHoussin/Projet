@@ -5,11 +5,16 @@
 {% block body %}
 
     <img src="{{user.profilPhoto}}">
-    {% for badge in user.getBadges %}
-        <li>
-            <img src="{{badge.badgeIcon}}">
-        </li>
-    {% endfor %}
+    <ul>
+        {% for badge in user.getBadges %}
+            <li>
+                <img src="{{badge.badgeIcon}}">
+            </li>
+        {% endfor %}
+    </ul>
+    {% if is_granted('ROLE_ADMIN') %}
+        <p><a href="{{ path('edit_badges', { 'id':user.id }) }}">Changer les Badges</a></p>
+    {% endif %}
     <h2>{{user.pseudo}}</h2>
     <ul>
         {% for role in user.roles %}

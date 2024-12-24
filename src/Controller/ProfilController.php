@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Character;
+use App\Form\EditBadgesType;
 use App\Form\EditProfilType;
 use App\Service\UserService;
 use App\Form\EditGradePointType;
@@ -62,7 +63,9 @@ class ProfilController extends AbstractController
     {
         $user = $security->getUser();
 
-        $formEditProfil = $this->createForm(EditProfilType::class, $user);
+        $formEditProfil = $this->createForm(EditBadgesType::class, $user, [
+            'badges' => $badgeRepository->findAll(), // ou votre méthode pour récupérer les badges
+        ]);
         $formEditProfil->handleRequest($request);
 
         if ($formEditProfil->isSubmitted() && $formEditProfil->isValid()) {
@@ -99,6 +102,27 @@ class ProfilController extends AbstractController
         }
         return $this->render('profil/editGradePoint.html.twig', [
             'editGradePoint' => $formEditGradePoint->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('/profil/{id}/editBadges', name: 'edit_badges')]
+    public function editBadges(Request $request, Security $security, EntityManagerInterface $entityManager, User $user): Response
+    {
+
+        $formBadgesType = $this->createForm(EditBadgesType::class, $user);
+        $formBadgesType->handleRequest($request);
+
+        if ($formBadgesType->isSubmitted() && $formBadgesType->isValid()) {
+            
+            // Sauvegarder dans la base de données
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_profil', ['id' => $user->getId()]);
+        }
+        return $this->render('profil/editBadges.html.twig', [
+            'editBadges' => $formBadgesType->createView(),
             'user' => $user,
         ]);
     }
